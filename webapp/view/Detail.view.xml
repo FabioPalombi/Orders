@@ -1,0 +1,62 @@
+<mvc:View controllerName="sap.ui.demo.walkthrough.controller.Detail" xmlns:u="sap.uxap" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" displayBlock="true">
+    <u:ObjectPageLayout showTitleInHeaderContent="true" selectedSection="paymentSubSection" useIconTabBar="true" upperCaseAnchorBar="false">
+        <!-- Header -->
+        <u:headerTitle>
+            <u:ObjectPageDynamicHeaderTitle>
+               <u:navigationActions>
+                <u:ObjectPageHeaderActionButton icon="sap-icon://nav-back" type="Back" press="onBack" />
+               </u:navigationActions>
+                <u:expandedHeading>
+                    <Title text="{order>/OrderID}" wrapping="true" />
+                </u:expandedHeading>
+                <u:snappedHeading>
+                    <Title text="{order>/OrderID}" wrapping="true" />
+                </u:snappedHeading>
+            </u:ObjectPageDynamicHeaderTitle>
+        </u:headerTitle>
+        <u:headerContent>
+            <!-- Product info form -->
+            <f:Form editable="false">
+                <f:layout>
+                    <f:ColumnLayout />
+                </f:layout>
+                <f:formContainers>
+                    <f:FormContainer>
+                        <f:formElements>
+                            <f:FormElement label="Customer">
+                                <f:fields>
+                                    <Text text="{order>/ShipName} ({order>/CustomerID})" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Order Date">
+                                <f:fields>
+                                    <Text text="{path: 'order>/OrderDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd/MM/yyyy'}}" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Address">
+                                <f:fields>
+                                    <Text text="{order>/ShipAddress}, {order>/ShipCity}, {order>/ShipPostalCode}, {order>/ShipCountry}" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Shipping Date">
+                                <f:fields>
+                                    <Text text="{path: 'order>/ShippedDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd/MM/yyyy'}}" />
+                                </f:fields>
+                            </f:FormElement>
+                        </f:formElements>
+                    </f:FormContainer>
+                </f:formContainers>
+            </f:Form>
+        </u:headerContent>
+        <u:sections>
+            <u:ObjectPageSection showTitle="false">
+                <u:ObjectPageSubSection>
+                    <!-- Order Products -->
+                    <List id="products" items="{detail>/}" headerText="{i18n>productTitle}">
+                        <StandardListItem title="{detail>Product/ProductName}" description="{path: 'detail>Product/UnitPrice', type: 'sap.ui.model.type.Float', formatOptions: {decimals: 2}} EUR" counter="{detail>Product/UnitsInStock}" type="Detail" detailPress="onProduct" />
+                    </List>
+                </u:ObjectPageSubSection>
+            </u:ObjectPageSection>
+        </u:sections>
+    </u:ObjectPageLayout>
+</mvc:View>

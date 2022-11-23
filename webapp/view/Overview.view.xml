@@ -1,0 +1,81 @@
+<mvc:View xmlns:u="sap.uxap" xmlns:core="sap.ui.core" controllerName="sap.ui.demo.walkthrough.controller.Overview" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:mvc="sap.ui.core.mvc" displayBlock="true">
+   <u:ObjectPageLayout showTitleInHeaderContent="true" selectedSection="paymentSubSection" useIconTabBar="true" upperCaseAnchorBar="false">
+      <!-- Header -->
+      <u:headerTitle>
+         <u:ObjectPageDynamicHeaderTitle>
+            <u:expandedHeading>
+               <Title text="{i18n>homeTitle}" wrapping="true" />
+            </u:expandedHeading>
+            <u:snappedHeading>
+               <Title text="{i18n>homeTitle}" wrapping="true" />
+            </u:snappedHeading>
+            <u:actions>
+               <Button icon="sap-icon://refresh" text="Refresh" />
+            </u:actions>
+         </u:ObjectPageDynamicHeaderTitle>
+      </u:headerTitle>
+      <!-- Filter Bar -->
+      <u:headerContent>
+         <fb:FilterBar showFilterConfiguration="false" showGoOnFB="true" showClearOnFB="true" useToolbar="false" search="onSearch" clear="onClear">
+            <fb:filterGroupItems>
+               <fb:FilterGroupItem groupName="__$INTERNAL$" name="PRODUCT" label="Order ID" visibleInFilterBar="true">
+                  <fb:control>
+                     <MultiComboBox id="filterID" selectionChange="onSearch" selectionFinish="onSearch" items="{main>/}">
+                        <core:Item key="{main>OrderID}" text="{main>OrderID}" />
+                     </MultiComboBox>
+                  </fb:control>
+               </fb:FilterGroupItem>
+               <fb:FilterGroupItem groupName="__$INTERNAL$" name="CUSTOMER" label="Customer Name" visibleInFilterBar="true">
+                  <fb:control>
+                     <Input id="filterCustomer" placeholder="Customer Name..." change="onSearch" liveChange="onSearch" />
+                  </fb:control>
+               </fb:FilterGroupItem>
+               <fb:FilterGroupItem groupName="__$INTERNAL$" name="ORDER_DATE" label="Order Date" visibleInFilterBar="true">
+                  <fb:control>
+                     <DatePicker id="filterDate" displayFormat="dd/MM/yyyy" />
+                  </fb:control>
+               </fb:FilterGroupItem>
+            </fb:filterGroupItems>
+         </fb:FilterBar>
+      </u:headerContent>
+      <!-- Table -->
+      <u:sections>
+         <u:ObjectPageSection showTitle="false">
+            <u:ObjectPageSubSection>
+                  <Table id="mainTable" items="{main>/}" alternateRowColors="true" growing="true" growingScrollToLoad="true" growingThreshold="25">
+                     <columns>
+                        <Column hAlign="Center">
+                           <Label text="ID" />
+                        </Column>
+                        <Column hAlign="Center">
+                           <Label text="Customer" />
+                        </Column>
+                        <Column hAlign="Center">
+                           <Label text="Address" />
+                        </Column>
+                        <Column hAlign="Center">
+                           <Label text="Order" />
+                        </Column>
+                        <Column hAlign="Center">
+                           <Label text="Shipping" />
+                        </Column>
+                        <Column hAlign="Center">
+                           <Label text="Price" />
+                        </Column>
+                     </columns>
+                     <items>
+                        <ColumnListItem type="Navigation" press="onDetail">
+                           <ObjectStatus text="{main>OrderID}" />
+                           <Text text="{main>ShipName} ({main>CustomerID})" tooltip="{main>ShipName} ({main>CustomerID})" maxLines="1" />
+                           <Text text="{main>ShipAddress}, {main>ShipCity}, {main>ShipCountry}" tooltip="{main>ShipAddress}, {main>ShipCity}, {main>ShipCountry}" maxLines="1" />
+                           <Text text="{path: 'main>OrderDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd/MM/yyyy'}}" />
+                           <Text text="{path: 'main>ShippedDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd/MM/yyyy'}}" />
+                           <ObjectNumber number="{path: 'main>Freight', type: 'sap.ui.model.type.Float', formatOptions: {decimals: 2}}" textAlign="Center" state="{= ${main>Freight} > 50 ? 'Error' : 'None' }" unit="EUR" />
+                        </ColumnListItem>
+                     </items>
+                  </Table>
+            </u:ObjectPageSubSection>
+         </u:ObjectPageSection>
+      </u:sections>
+   </u:ObjectPageLayout>
+</mvc:View>

@@ -1,0 +1,7 @@
+html[dir="ltr"] .app {
+  margin-right: 0.125rem
+}
+
+html[dir="rtl"] .app {
+  margin-left: 0.125rem
+}

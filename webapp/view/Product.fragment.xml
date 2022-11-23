@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+    <Dialog id="product" title="{product>/ProductName} ({product>/ProductID})">
+        <!-- Product Form -->
+        <f:Form editable="false" class="sapUiSmallMarginBegin">
+            <f:layout>
+                <f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" />
+            </f:layout>
+            <f:formContainers>
+                <f:FormContainer>
+                    <f:formElements>
+                        <f:FormElement>
+                            <f:fields>
+                                <Image id="image" />
+                            </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Qt. Per Unit">
+                            <f:fields>
+                                <Text text="{product>/QuantityPerUnit}" />
+                            </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Description">
+                            <f:fields>
+                                <Text text="{product>/Category/Description}" />
+                            </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Category">
+                            <f:fields>
+                                <Text text="{product>/Category/CategoryName}" />
+                            </f:fields>
+                        </f:FormElement>
+                    </f:formElements>
+                </f:FormContainer>
+            </f:formContainers>
+        </f:Form>
+        <!-- Close Button -->
+        <buttons>
+            <Button text="OK" type="Emphasized" press="onClose" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>
